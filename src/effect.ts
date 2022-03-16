@@ -6,7 +6,7 @@ class ReactiveEffect {
   }
   run() {
     activeEffect = this;
-    this._fn();
+    return this._fn();
   }
 }
 
@@ -29,11 +29,17 @@ export function track(target, key) {
 }
 
 export function trigger(target, key) {
-
+  const depsMap = targetMap.get(target);
+  const deps = depsMap.get(key);
+  for (const effect of deps) {
+    effect.run();
+  }
 }
 
 let activeEffect;
 export function effect(fn) {
   const _effect = new ReactiveEffect(fn);
   _effect.run();
+
+  return _effect.run.bind(_effect);
 }

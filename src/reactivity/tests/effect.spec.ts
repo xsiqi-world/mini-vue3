@@ -12,9 +12,28 @@ describe('effect', () => {
       nextAge = user.age + 1;
     });
 
+    // 调用第一次effect
     expect(nextAge).toBe(11);
 
-    nextAge++;
-    expect(nextAge).toBe(12);
+    // nextAge++;
+    // expect(nextAge).toBe(12);
+
+    // 数据更新再次调用effect
+    user.age = 12;
+    expect(nextAge).toBe(13);
+  })
+
+  it('return runner when call effect', () => {
+    let foo = 10;
+    const runner = effect(() => {
+      foo++;
+      return 'foo';
+    })
+
+    expect(foo).toBe(11);
+
+    const r = runner();
+    expect(foo).toBe(12);
+    expect(r).toBe('foo');
   })
 })
