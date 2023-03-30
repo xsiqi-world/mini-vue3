@@ -1,7 +1,7 @@
 import { extend } from "../shared";
 
 let activeEffect;
-let shouldTrack;
+let shouldTrack = false;
 
 class ReactiveEffect {
   private _fn: any;
@@ -44,11 +44,14 @@ function cleanupEffect(effect) {
   effect.deps.forEach((dep: any) => {
     dep.delete(effect);
   })
+  effect.deps.length = 0;
 }
 
 const targetMap = new Map();
 export function track(target, key) {
   if (!isTracking()) return;
+  if (!activeEffect) return;
+
   // target -> key -> dep
   let depsMap = targetMap.get(target);
   if (!depsMap) {
@@ -62,7 +65,7 @@ export function track(target, key) {
     depsMap.set(key, dep);
   }
 
-  if (!activeEffect) return;
+  if (dep.has(activeEffect)) return;
 
   dep.add(activeEffect);
   activeEffect?.deps.push(dep);
