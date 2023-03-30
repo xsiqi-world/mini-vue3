@@ -4,3 +4,4 @@
     - `effect` return `runner`
     - `effect` 传入 `scheduler`实现
     - `effect` the `stop` and `onStop`
+    - `readonly` and `isReactive`, `isReadonly`
