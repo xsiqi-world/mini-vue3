@@ -10,6 +10,7 @@ describe('effect', () => {
     let nextAge;
     effect(() => {
       nextAge = user.age + 1;
+      // user.age++;
     });
 
     // 调用第一次effect
