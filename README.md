@@ -6,3 +6,4 @@
     - `effect` the `stop` and `onStop`
     - `readonly` and `isReactive`, `isReadonly`
     - `ref` and `isRef`, `unRef`
+    - `computed`
