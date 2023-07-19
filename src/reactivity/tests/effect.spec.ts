@@ -10,6 +10,7 @@ describe('effect', () => {
     let nextAge;
     effect(() => {
       nextAge = user.age + 1;
+      // TODO:需要处理内存溢出的问题
       // user.age++;
     });
 
